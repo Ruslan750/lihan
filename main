@@ -1,0 +1,32 @@
+import random
+import tkinter as tk
+from tkinter import filedialog
+
+file_names = ['1.txt', '2.txt', '3.txt']
+
+for file_name in file_names:
+    number = random.randint(9, 10)
+    random_numbers = [random.randint(1, 100) for _ in range(number)]
+    
+    with open(file_name, 'w') as file:
+        for num in random_numbers:
+            file.write(f"{num}\n")
+            
+root = tk.Tk()
+root.withdraw()
+
+selected_file = filedialog.askopenfilename(
+    title="Выберите файл",
+    filetypes=[("Текстовые файлы", "*.txt")]
+)
+
+if selected_file:
+    with open(selected_file, 'r') as file:
+        content = file.read()
+        numbers = [int(num) for num in content.splitlines() if num.strip()]
+        total_sum = sum(numbers)
+        print(f"Числа из файла {selected_file}: {numbers}")
+        print(f"Сумма чисел в файле: {total_sum}")
+
+else:
+    print("Файл не выбран.")
