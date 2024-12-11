@@ -1,0 +1,20 @@
+import tkinter as tk
+from tkinter import filedialog
+
+root = tk.Tk()
+root.withdraw()
+
+selected_file = filedialog.askopenfilename(
+    title="Выберите файл",
+    filetypes=[("Текстовые файлы", "*.txt")]
+)
+
+if selected_file:
+    with open(selected_file, 'r') as file:
+        content = file.read()
+        numbers = [int(num) for num in content.splitlines() if num.strip()]
+        total_sum = sum(numbers)
+        print(f"Числа из файла {selected_file}: {numbers}")
+        print(f"Сумма чисел в файле: {total_sum}")
+else:
+    print("Файл не выбран.")
